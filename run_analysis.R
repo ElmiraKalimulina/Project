@@ -1,23 +1,23 @@
 #Download and unzip data
 fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(fileUrl,destfile="./data/DatasetCourseProject.zip",method="curl")
-unzip(zipfile="./data/DatasetCourseProject.zip",exdir="./data")
+download.file(fileUrl,destfile="DatasetCourseProject.zip",method="curl")
+unzip(zipfile="DatasetCourseProject.zip",exdir="./data")
 
 
 ##################################################################
 # 1. Merges the training and the test sets to create one data set.
 ##################################################################
 
-x_train <- read.table('./data/UCI HAR Dataset/train/X_train.txt')
-x_test <- read.table('./data/UCI HAR Dataset/test/X_test.txt')
+x_train <- read.table('./UCI HAR Dataset/train/X_train.txt')
+x_test <- read.table('./UCI HAR Dataset/test/X_test.txt')
 x <- rbind(x_train, x_test)
 
-subject_train <- read.table('./data/UCI HAR Dataset/train/subject_train.txt')
-subject_test <- read.table('./data/UCI HAR Dataset/test/subject_test.txt')
+subject_train <- read.table('./UCI HAR Dataset/train/subject_train.txt')
+subject_test <- read.table('./UCI HAR Dataset/test/subject_test.txt')
 subject <- rbind(subject_train, subject_test)
 
-y_train <- read.table('./data/UCI HAR Dataset/train/y_train.txt')
-y_test <- read.table('./data/UCI HAR Dataset/test/y_test.txt')
+y_train <- read.table('./UCI HAR Dataset/train/y_train.txt')
+y_test <- read.table('./UCI HAR Dataset/test/y_test.txt')
 y <- rbind(y_train, y_test)
 
 #################################################################
@@ -25,7 +25,7 @@ y <- rbind(y_train, y_test)
 #for each measurement. 
 ##################################################################
 
-features <- read.table('./data/UCI HAR Dataset/features.txt')
+features <- read.table('./UCI HAR Dataset/features.txt')
 mean.sd <- grep("-mean\\(\\)|-std\\(\\)", features[, 2])
 x.mean.sd <- x[, mean.sd]
 
@@ -38,7 +38,7 @@ names(x.mean.sd) <- features[mean.sd, 2]
 names(x.mean.sd) <- tolower(names(x.mean.sd)) 
 names(x.mean.sd) <- gsub("\\(|\\)", "", names(x.mean.sd))
 
-activity_labels <- read.table('./data/UCI HAR Dataset/activity_labels.txt')
+activity_labels <- read.table('./UCI HAR Dataset/activity_labels.txt')
 activity_labels[, 2] <- tolower(as.character(activity_labels[, 2]))
 activity_labels[, 2] <- gsub("_", "", activity_labels[, 2])
 
@@ -52,7 +52,7 @@ colnames(subject) <- 'subject'
 ##################################################################
 data <- cbind(subject, x.mean.sd, y)
 str(data)
-write.table(data, './data/merged.txt', row.names = F)
+write.table(data, './merged.txt', row.names = F)
 
 
 
@@ -64,7 +64,7 @@ write.table(data, './data/merged.txt', row.names = F)
 average.df <- aggregate(x=data, by=list(activities=data$activity, subj=data$subject), FUN=mean)
 average.df <- average.df[, !(colnames(average.df) %in% c("subj", "activity"))]
 str(average.df)
-write.table(average.df, './data/average.txt', row.names = F)
+write.table(average.df, './average.txt', row.names = F)
 
 
 
