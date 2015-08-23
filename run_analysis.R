@@ -1,7 +1,7 @@
 #Download and unzip data
 fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(fileUrl,destfile="DatasetCourseProject.zip",method="curl")
-unzip(zipfile="DatasetCourseProject.zip",exdir="./data")
+unzip(zipfile="DatasetCourseProject.zip")
 
 
 ##################################################################
@@ -64,36 +64,5 @@ write.table(data, './merged.txt', row.names = F)
 average.df <- aggregate(x=data, by=list(activities=data$activity, subj=data$subject), FUN=mean)
 average.df <- average.df[, !(colnames(average.df) %in% c("subj", "activity"))]
 str(average.df)
-write.table(average.df, './average.txt', row.names = F)
-
-
-
-
-
-
-
-
-
-
-
-
-#Names before
-head(str(dataTable),2)
-     
-     
-     names(dataTable)<-gsub("std()", "SD", names(dataTable))
-     names(dataTable)<-gsub("mean()", "MEAN", names(dataTable))
-     names(dataTable)<-gsub("^t", "time", names(dataTable))
-     names(dataTable)<-gsub("^f", "frequency", names(dataTable))
-     names(dataTable)<-gsub("Acc", "Accelerometer", names(dataTable))
-     names(dataTable)<-gsub("Gyro", "Gyroscope", names(dataTable))
-     names(dataTable)<-gsub("Mag", "Magnitude", names(dataTable))
-     names(dataTable)<-gsub("BodyBody", "Body", names(dataTable))
-     # Names after
-     head(str(dataTable),6)
-     
-     
-     ##write to text file on disk
-     write.table(dataTable, "TidyData.txt", row.name=FALSE)
-
+write.table(average.df, 'tidy_data_set.txt', row.names = F)
 
