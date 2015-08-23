@@ -37,5 +37,7 @@ and merged them  using ```rbind()```.
 #### Tidy Data Output
 I used ```write.table()``` and save my results in ```tidy_data_set.txt```.
 
+For more details see comments in a source file ``run_analysis.R``.
+
 
 
