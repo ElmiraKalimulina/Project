@@ -44,6 +44,7 @@ The second step is unzipping it into the main directory being the working direct
 Then I read data from 'train' and 'test' directory separately, for example, for "X" data
 
 `x_train <- read.table('./UCI HAR Dataset/train/X_train.txt')`
+
 `x_test <- read.table('./UCI HAR Dataset/test/X_test.txt')`
 
 and merged them  using ```rbind()```.
