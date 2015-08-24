@@ -27,11 +27,25 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 ### Description
 #### Downloading Data
-The first thing you have to do is downloading ```zip``` file. 
+The first thing you have to do is downloading ```zip``` file
+
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+with command
+
+`download.file()`
 
 #### Merge test and train datasets
-The second step is unzipping it into the main directory being the working directory of my code.
-Then I read data from 'train' and 'test' directory separately 
+The second step is unzipping it into the main directory being the working directory of my code by command
+
+`unzip(zipfile="DatasetCourseProject.zip")`
+
+
+Then I read data from 'train' and 'test' directory separately, for example, for "X" data
+
+`x_train <- read.table('./UCI HAR Dataset/train/X_train.txt')`
+`x_test <- read.table('./UCI HAR Dataset/test/X_test.txt')`
+
 and merged them  using ```rbind()```.
 
 #### Tidy Data Output
