@@ -49,6 +49,34 @@ Then I read data from 'train' and 'test' directory separately, for example, for 
 
 and merged them  using ```rbind()```.
 
+
+###Extracts only the measurements on the mean and standard deviation for each measurement. 
+
+`features <- read.table('./UCI HAR Dataset/features.txt')`
+
+`mean.sd <- grep("-mean\\(\\)|-std\\(\\)", features[, 2])`
+
+`x.mean.sd <- x[, mean.sd]`
+
+
+###Uses descriptive activity names to name the activities in the data set
+
+
+`names(x.mean.sd) <- features[mean.sd, 2]`
+`names(x.mean.sd) <- tolower(names(x.mean.sd)) `
+`names(x.mean.sd) <- gsub("\\(|\\)", "", names(x.mean.sd))`
+
+activity_labels <- read.table('./UCI HAR Dataset/activity_labels.txt')
+activity_labels[, 2] <- tolower(as.character(activity_labels[, 2]))
+activity_labels[, 2] <- gsub("_", "", activity_labels[, 2])
+
+y[, 1] = activity_labels[y[, 1], 2]
+colnames(y) <- 'activity'
+colnames(subject) <- 'subject'
+
+
+
+
 #### Tidy Data Output
 I used ```write.table()``` and save my results in ```tidy_data_set.txt```.
 
